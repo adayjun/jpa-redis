@@ -2,15 +2,24 @@ package com.example.restservice.controller;
 
 import com.example.restservice.entity.Student;
 import com.example.restservice.service.StudentServiceImpl;
+import jdk.nashorn.internal.runtime.logging.Logger;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Logger
 @RestController
+@CrossOrigin(origins = "*")
 public class TestController {
+
+
+    @Value("${ppp.ppp}")
+    private String ss;
 
 
     @Autowired
@@ -25,6 +34,7 @@ public class TestController {
 //        ss.setName("gang");
 //        ss.setAge(22);
 //        studentServiceImpl.add(ss);
+        System.out.println(ss);
 
         List<Student>  studentEntities=studentServiceImpl.findAll();
         return  studentEntities;
@@ -68,8 +78,8 @@ public class TestController {
 
     }
 
-    @PostMapping("/fenye")
-    public Page<Student> fenYe(Pageable pageable){
+    @GetMapping("/fenye")
+    public Page<Student> fenYe( Pageable pageable){
         Page<Student> ss=studentServiceImpl.findALL(pageable);
         return ss;
     }
